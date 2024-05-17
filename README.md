@@ -60,3 +60,6 @@ Once we obtain the ICP amount for a specific address, we will check in the backg
 
 Due to security and confidentiality reasons, we have not disclosed the code for the function that determines whether the payment was successful.
 
+![demo](https://github.com/LEEKOHCHING/ICP-Integration/blob/main/ezgif-2-99f7e52fc4.gif)
+
+
