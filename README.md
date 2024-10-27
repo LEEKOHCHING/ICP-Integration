@@ -82,6 +82,8 @@ while true; do
 done
 ```
 
+![demo](https://github.com/LEEKOHCHING/ICP-Integration/blob/main/ezgif-3-b47604cbb8.gif)
+
 TabbyPOS will use ckBTC as membership reward points for purchases, so it will involve how to send ckBTC.
 ```bash
 #!/bin/bash
