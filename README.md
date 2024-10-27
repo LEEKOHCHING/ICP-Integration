@@ -62,4 +62,45 @@ Due to security and confidentiality reasons, we have not disclosed the code for 
 
 ![demo](https://github.com/LEEKOHCHING/ICP-Integration/blob/main/ezgif-2-99f7e52fc4.gif)
 
+# ckBTC-Integration
+The next step is integrating ckBTC. The overall concept is quite similar, with the main difference being that ckBTC is an ICRC-2-compliant token, which makes the balance query process different. Below is the code for querying ckBTC balance.
+```bash
+#!/bin/bash
+while true; do
+    response=$(curl https://www.apikolmenpro.com/wsTabby/tabby.asmx/ckBTCGetTask)
+    if [ "$response" -eq 0 ]; then
+       echo "Response is equal to 0"
+    else
+         # Run the command if response is 1     
+         output=$(dfx canister --network ic call mxzaz-hqaaa-aaaar-qaada-cai icrc1_balance_of "(record { owner = principal \""$response"\"; subaccount = null; })")
+   encoded_output=$(urlencode "$output")
+        api_url="https://www.apikolmenpro.com/wsTabby/tabby.asmx/ckBTCUpdateTask?Address=$response&Balance=$encoded_output"
+        curl "$api_url"    
+    fi
+    # Sleep for 3 seconds
+    sleep 3
+done
+```
+
+TabbyPOS will use ckBTC as membership reward points for purchases, so it will involve how to send ckBTC.
+```bash
+#!/bin/bash
+while true; do
+    response=$(curl https://www.apikolmenpro.com/wsTabby/tabby.asmx/ckBTCGetTaskSendBTC)
+    if [ "$response" -eq 0 ]; then
+       echo "Response is equal to 0"
+    else
+	IFS=','read -r address amount <<< "$response"
+	echo"Address: $address"
+	echo"Amount: $amount"
+         # Run the command if response is 1     
+         output=$(dfx canister --network ic call mxzaz-hqaaa-aaaar-qaada-cai icrc1_transfer "(record { from_subaccount = null; to = record { owner = principal \""$address"\"; subaccount = null }; amount = $amount; })")
+   encoded_output=$(urlencode "$output")
+        api_url="https://www.apikolmenpro.com/wsTabby/tabby.asmx/ckBTCUpdateTaskSendBTC?Address=$response&Remarks=$encoded_output"
+        curl "$api_url"    
+    fi
+    # Sleep for 3 seconds
+    sleep 3
+done
+```
 
