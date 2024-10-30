@@ -67,7 +67,7 @@ The next step is integrating ckBTC. The overall concept is quite similar, with t
 ```bash
 #!/bin/bash
 while true; do
-    response=$(curl https://www.apikolmenpro.com/wsTabby/tabby.asmx/ckBTCGetTask)
+    response=$(curl [API URL]/ckBTCGetTask)
     if [ "$response" -eq 0 ]; then
        echo "Response is equal to 0"
     else
@@ -88,7 +88,7 @@ TabbyPOS will use ckBTC as membership reward points for purchases, so it will in
 ```bash
 #!/bin/bash
 while true; do
-    response=$(curl https://www.apikolmenpro.com/wsTabby/tabby.asmx/ckBTCGetTaskSendBTC)
+    response=$(curl [API URL]/ckBTCGetTaskSendBTC)
     if [ "$response" -eq 0 ]; then
        echo "Response is equal to 0"
     else
